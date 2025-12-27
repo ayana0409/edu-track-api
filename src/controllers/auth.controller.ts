@@ -44,7 +44,7 @@ export class AuthController extends Controller {
       usr_fullname: fullname,
     });
 
-    successResponse({
+    return successResponse({
       id: user._id,
       username: user.usr_username,
       fullname: user.usr_fullname,
@@ -74,7 +74,7 @@ export class AuthController extends Controller {
       rt_exp: Date.now() + 7 * 24 * 60 * 60 * 1000,
     });
 
-    successResponse({
+    return successResponse({
       accessToken,
       refreshToken,
     });

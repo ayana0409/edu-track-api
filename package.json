@@ -7,8 +7,8 @@
     "tsoa:routes": "tsoa routes",
     "tsoa:spec": "tsoa spec",
     "build": "tsc",
-    "start": "node dist/app.js",
-    "dev": "ts-node-dev src/app.ts"
+    "start": "node dist/server.js",
+    "dev": "ts-node-dev src/server.ts"
   },
   "repository": {
     "type": "git",
