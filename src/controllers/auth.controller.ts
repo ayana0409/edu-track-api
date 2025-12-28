@@ -1,28 +1,23 @@
 import bcrypt from "bcrypt";
-import { Request, Response } from "express";
 import { UserModel } from "../models/user.model";
 import { UserRoleModel } from "../models/userRole.model";
 import { RefreshTokenModel } from "../models/refreshToken.model";
 import { signAccessToken, signRefreshToken } from "../utils/jwt";
-import {
-  LoginRequestBody,
-  LoginResponse,
-  RegisterRequestBody,
-  RegisterResponse,
-} from "../dtos/auth.dto";
+import { LoginRequestBody, RegisterRequestBody } from "../dtos/auth.dto";
 import { successResponse } from "../utils/response";
-import { ApiResponse } from "../types/api-response";
 import {
   Body,
   Controller,
   Post,
-  Res,
   Route,
+  Security,
   SuccessResponse,
   Tags,
-  TsoaResponse,
+  Request,
 } from "tsoa";
 import { ApiError } from "../utils/api-error";
+import { env } from "../configs/env";
+import { verifyRefreshToken } from "../utils/jwt";
 
 @Route("auth")
 @Tags("Auth")
@@ -71,12 +66,73 @@ export class AuthController extends Controller {
     await RefreshTokenModel.create({
       us_id: user._id,
       rt_refresh_tk: refreshToken,
-      rt_exp: Date.now() + 7 * 24 * 60 * 60 * 1000,
+      rt_exp: Date.now() + env.JWT_REFRESH_EXPIRES,
     });
 
     return successResponse({
       accessToken,
       refreshToken,
     });
+  }
+
+  @Post("refresh-token")
+  public async refreshToken(@Body() body: { refreshToken: string }) {
+    const { refreshToken } = body;
+
+    const stored = await RefreshTokenModel.findOne({
+      rt_refresh_tk: refreshToken,
+    });
+
+    if (!stored) throw new ApiError(401, "Invalid refresh token");
+    if (stored.rt_used) throw new ApiError(401, "Token already used");
+    if (stored.rt_exp < Date.now()) throw new ApiError(401, "Token expired");
+
+    let payload: any;
+    payload = verifyRefreshToken(refreshToken);
+
+    stored.rt_used = true;
+    await stored.save();
+
+    const user = await UserModel.findById(payload.sub).populate("rl_id");
+    if (!user) throw new ApiError(404, "User not found");
+
+    const newAccessToken = signAccessToken(
+      user._id,
+      (user.rl_id as any).rl_name
+    );
+    const newRefreshToken = signRefreshToken(user._id);
+
+    await RefreshTokenModel.create({
+      us_id: user._id,
+      rt_refresh_tk: newRefreshToken,
+      rt_exp: Date.now() + env.JWT_REFRESH_EXPIRES,
+    });
+
+    return successResponse({
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken,
+    });
+  }
+
+  @Post("change-password")
+  @Security("jwt")
+  public async changePassword(
+    @Request() user: { id: string; role: string },
+    @Body()
+    body: {
+      oldPassword: string;
+      newPassword: string;
+    }
+  ) {
+    const dbUser = await UserModel.findById(user.id);
+    if (!dbUser) throw new ApiError(404, "User not found");
+
+    const match = await bcrypt.compare(body.oldPassword, dbUser.usr_password);
+    if (!match) throw new ApiError(400, "Old password incorrect");
+
+    dbUser.usr_password = await bcrypt.hash(body.newPassword, 10);
+    await dbUser.save();
+
+    return successResponse({ message: "Password changed successfully" });
   }
 }
