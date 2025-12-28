@@ -18,6 +18,7 @@ import {
 import { ApiError } from "../utils/api-error";
 import { env } from "../configs/env";
 import { verifyRefreshToken } from "../utils/jwt";
+import { Types } from "mongoose";
 
 @Route("auth")
 @Tags("Auth")
@@ -76,6 +77,7 @@ export class AuthController extends Controller {
   }
 
   @Post("refresh-token")
+  @Security("jwt")
   public async refreshToken(@Body() body: { refreshToken: string }) {
     const { refreshToken } = body;
 
@@ -93,7 +95,7 @@ export class AuthController extends Controller {
     stored.rt_used = true;
     await stored.save();
 
-    const user = await UserModel.findById(payload.sub).populate("rl_id");
+    const user = await UserModel.findById(payload.userId).populate("rl_id");
     if (!user) throw new ApiError(404, "User not found");
 
     const newAccessToken = signAccessToken(
@@ -117,14 +119,14 @@ export class AuthController extends Controller {
   @Post("change-password")
   @Security("jwt")
   public async changePassword(
-    @Request() user: { id: string; role: string },
+    @Request() req: any,
     @Body()
     body: {
       oldPassword: string;
       newPassword: string;
     }
   ) {
-    const dbUser = await UserModel.findById(user.id);
+    const dbUser = await UserModel.findById(new Types.ObjectId(req.user.id));
     if (!dbUser) throw new ApiError(404, "User not found");
 
     const match = await bcrypt.compare(body.oldPassword, dbUser.usr_password);
@@ -134,5 +136,26 @@ export class AuthController extends Controller {
     await dbUser.save();
 
     return successResponse({ message: "Password changed successfully" });
+  }
+
+  @Post("reset-password")
+  @Security("jwt", ["admin"])
+  public async resetPassword(
+    @Body()
+    body: {
+      userId: string;
+    }
+  ) {
+    if (!Types.ObjectId.isValid(body.userId)) {
+      throw new ApiError(400, "Invalid user ID");
+    }
+
+    const user = await UserModel.findById(new Types.ObjectId(body.userId));
+    if (!user) throw new ApiError(404, "User not found");
+
+    user.usr_password = await bcrypt.hash(env.DEFAULT_PASSWORD, 10);
+    await user.save();
+
+    return successResponse({ message: "Password reset successfully" });
   }
 }
