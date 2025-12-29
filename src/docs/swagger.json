@@ -213,11 +213,7 @@
 				"tags": [
 					"Auth"
 				],
-				"security": [
-					{
-						"jwt": []
-					}
-				],
+				"security": [],
 				"parameters": [],
 				"requestBody": {
 					"required": true,
@@ -307,7 +303,9 @@
 				],
 				"security": [
 					{
-						"jwt": []
+						"jwt": [
+							"admin"
+						]
 					}
 				],
 				"parameters": [],
@@ -323,6 +321,46 @@
 								},
 								"required": [
 									"userId"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/google": {
+			"post": {
+				"operationId": "LoginWithGoogle",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__accessToken-string--refreshToken-string__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Auth"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"idToken": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"idToken"
 								],
 								"type": "object"
 							}
