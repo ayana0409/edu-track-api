@@ -13,4 +13,7 @@ export const env = {
   JWT_REFRESH_EXPIRES: Number(process.env.JWT_REFRESH_EXPIRES),
 
   DEFAULT_PASSWORD: process.env.DEFAULT_PASSWORD || "p@ssw0rd123",
+
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID!,
+  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET!,
 };

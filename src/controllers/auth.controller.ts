@@ -19,6 +19,10 @@ import { ApiError } from "../utils/api-error";
 import { env } from "../configs/env";
 import { verifyRefreshToken } from "../utils/jwt";
 import { Types } from "mongoose";
+import { verifyGoogleToken } from "../services/googleAuth.service";
+import { roleCacheService } from "../services/roleCache.service";
+import { Role } from "../types/role.enum";
+import { LoginProvider } from "../types/loginProvider.enum";
 
 @Route("auth")
 @Tags("Auth")
@@ -77,7 +81,6 @@ export class AuthController extends Controller {
   }
 
   @Post("refresh-token")
-  @Security("jwt")
   public async refreshToken(@Body() body: { refreshToken: string }) {
     const { refreshToken } = body;
 
@@ -157,5 +160,40 @@ export class AuthController extends Controller {
     await user.save();
 
     return successResponse({ message: "Password reset successfully" });
+  }
+
+  @Post("google")
+  public async loginWithGoogle(@Body() body: { idToken: string }) {
+    const googleUser = await verifyGoogleToken(body.idToken);
+
+    let user = await UserModel.findOne({ email: googleUser.email }).populate(
+      "rl_id"
+    );
+
+    const role = await roleCacheService.getRoleByName(Role.USER);
+
+    if (!user) {
+      user = await UserModel.create({
+        usr_email: googleUser.email,
+        usr_fullname: googleUser.name,
+        usr_provider: LoginProvider.GOOGLE,
+        rl_id: role?._id,
+      });
+    }
+
+    const accessToken = signAccessToken(user._id, (user.rl_id as any).rl_name);
+
+    const refreshToken = signRefreshToken(user._id);
+
+    await RefreshTokenModel.create({
+      us_id: user._id,
+      rt_refresh_tk: refreshToken,
+      rt_exp: Date.now() + env.JWT_REFRESH_EXPIRES,
+    });
+
+    return successResponse({
+      accessToken,
+      refreshToken,
+    });
   }
 }
