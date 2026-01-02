@@ -7,6 +7,248 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"ApiStatus": {
+				"type": "string",
+				"enum": [
+					"success",
+					"error"
+				]
+			},
+			"mongoose.ObjectIdToString_Omit_mongoose.Require_id_DocType-and-TVirtuals_.__v__": {
+				"$ref": "#/components/schemas/mongoose.ObjectIdToString_Omit_mongoose.Require_id_DocType-and-TVirtuals_.__v__",
+				"description": "Converts any ObjectId properties into strings for JSON serialization"
+			},
+			"mongoose.Document_unknown.__.IDefineOption.__.mongoose.DefaultSchemaOptions_": {
+				"$ref": "#/components/schemas/mongoose.ObjectIdToString_Omit_mongoose.Require_id_DocType-and-TVirtuals_.__v__",
+				"description": "Generic types for Document:\n*  T - the type of _id\n*  TQueryHelpers - Object with any helpers that should be mixed into the Query type\n*  DocType - the type of the actual Document created"
+			},
+			"IDefineOption": {
+				"$ref": "#/components/schemas/mongoose.ObjectIdToString_Omit_mongoose.Require_id_DocType-and-TVirtuals_.__v__"
+			},
+			"Required___id-mongoose.Types.ObjectId__": {
+				"properties": {},
+				"type": "object",
+				"description": "Make all properties in T required"
+			},
+			"ApiResponse_mongoose.Document_unknown.__.IDefineOption.__.mongoose.DefaultSchemaOptions_-and-IDefineOption-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__": {
+				"properties": {
+					"status": {
+						"$ref": "#/components/schemas/ApiStatus"
+					},
+					"code": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/mongoose.Document_unknown.__.IDefineOption.__.mongoose.DefaultSchemaOptions_"
+							},
+							{
+								"$ref": "#/components/schemas/IDefineOption"
+							},
+							{
+								"$ref": "#/components/schemas/Required___id-mongoose.Types.ObjectId__"
+							},
+							{
+								"properties": {
+									"__v": {
+										"type": "number",
+										"format": "double"
+									}
+								},
+								"required": [
+									"__v"
+								],
+								"type": "object"
+							}
+						]
+					}
+				},
+				"required": [
+					"status",
+					"code"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateDefineOptionDto": {
+				"properties": {
+					"op_id": {
+						"type": "string"
+					},
+					"op_name": {
+						"type": "string"
+					},
+					"op_value": {
+						"type": "string"
+					},
+					"op_description": {
+						"type": "string"
+					},
+					"op_is_active": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"op_id",
+					"op_name",
+					"op_value"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse__40_IDefineOption-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__41_-Array_": {
+				"properties": {
+					"status": {
+						"$ref": "#/components/schemas/ApiStatus"
+					},
+					"code": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"allOf": [
+								{
+									"$ref": "#/components/schemas/IDefineOption"
+								},
+								{
+									"$ref": "#/components/schemas/Required___id-mongoose.Types.ObjectId__"
+								},
+								{
+									"properties": {
+										"__v": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"__v"
+									],
+									"type": "object"
+								}
+							]
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"status",
+					"code"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_IDefineOption-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__": {
+				"properties": {
+					"status": {
+						"$ref": "#/components/schemas/ApiStatus"
+					},
+					"code": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/IDefineOption"
+							},
+							{
+								"$ref": "#/components/schemas/Required___id-mongoose.Types.ObjectId__"
+							},
+							{
+								"properties": {
+									"__v": {
+										"type": "number",
+										"format": "double"
+									}
+								},
+								"required": [
+									"__v"
+								],
+								"type": "object"
+							}
+						]
+					}
+				},
+				"required": [
+					"status",
+					"code"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateDefineOptionDto": {
+				"properties": {
+					"op_name": {
+						"type": "string"
+					},
+					"op_value": {
+						"type": "string"
+					},
+					"op_description": {
+						"type": "string"
+					},
+					"op_is_active": {
+						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateDefineOptionValueDto": {
+				"properties": {
+					"op_value": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"op_value"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse__message-string__": {
+				"properties": {
+					"status": {
+						"$ref": "#/components/schemas/ApiStatus"
+					},
+					"code": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"properties": {
+							"message": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"message"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"status",
+					"code"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"RegisterRequestBody": {
 				"properties": {
 					"username": {
@@ -43,13 +285,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"ApiStatus": {
-				"type": "string",
-				"enum": [
-					"success",
-					"error"
-				]
-			},
 			"ApiResponse__accessToken-string--refreshToken-string__": {
 				"properties": {
 					"status": {
@@ -84,37 +319,6 @@
 				],
 				"type": "object",
 				"additionalProperties": false
-			},
-			"ApiResponse__message-string__": {
-				"properties": {
-					"status": {
-						"$ref": "#/components/schemas/ApiStatus"
-					},
-					"code": {
-						"type": "number",
-						"format": "double"
-					},
-					"message": {
-						"type": "string"
-					},
-					"data": {
-						"properties": {
-							"message": {
-								"type": "string"
-							}
-						},
-						"required": [
-							"message"
-						],
-						"type": "object"
-					}
-				},
-				"required": [
-					"status",
-					"code"
-				],
-				"type": "object",
-				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {
@@ -135,6 +339,230 @@
 		"contact": {}
 	},
 	"paths": {
+		"/define-options": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_mongoose.Document_unknown.__.IDefineOption.__.mongoose.DefaultSchemaOptions_-and-IDefineOption-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"DefineOption"
+				],
+				"security": [
+					{
+						"jwt": [
+							"admin"
+						]
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateDefineOptionDto"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__40_IDefineOption-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__41_-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"DefineOption"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/define-options/{op_id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_IDefineOption-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"DefineOption"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "op_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_mongoose.Document_unknown.__.IDefineOption.__.mongoose.DefaultSchemaOptions_-and-IDefineOption-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"DefineOption"
+				],
+				"security": [
+					{
+						"jwt": [
+							"admin"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "op_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateDefineOptionDto"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__message-string__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"DefineOption"
+				],
+				"security": [
+					{
+						"jwt": [
+							"admin"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "op_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/define-options/{op_id}/value": {
+			"patch": {
+				"operationId": "UpdateValue",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_mongoose.Document_unknown.__.IDefineOption.__.mongoose.DefaultSchemaOptions_-and-IDefineOption-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"DefineOption"
+				],
+				"security": [
+					{
+						"jwt": [
+							"admin"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "op_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateDefineOptionValueDto"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/auth/register": {
 			"post": {
 				"operationId": "Register",

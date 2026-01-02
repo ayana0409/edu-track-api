@@ -4,6 +4,8 @@
 import type { TsoaRoute } from '@tsoa/runtime';
 import {  fetchMiddlewares, ExpressTemplateService } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { DefineOptionController } from './../controllers/define-option.controller';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { AuthController } from './../controllers/auth.controller';
 import { expressAuthentication } from './../authentication';
 // @ts-ignore - no great way to install types from subpackage
@@ -15,6 +17,106 @@ const expressAuthenticationRecasted = expressAuthentication as (req: ExRequest, 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
+    "ApiStatus": {
+        "dataType": "refAlias",
+        "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["success"]},{"dataType":"enum","enums":["error"]}],"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "mongoose.ObjectIdToString_Omit_mongoose.Require_id_DocType-and-TVirtuals_.__v__": {
+        "dataType": "refAlias",
+        "type": {"ref":"mongoose.ObjectIdToString_Omit_mongoose.Require_id_DocType-and-TVirtuals_.__v__","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "mongoose.Document_unknown.__.IDefineOption.__.mongoose.DefaultSchemaOptions_": {
+        "dataType": "refAlias",
+        "type": {"ref":"mongoose.ObjectIdToString_Omit_mongoose.Require_id_DocType-and-TVirtuals_.__v__","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IDefineOption": {
+        "dataType": "refAlias",
+        "type": {"ref":"mongoose.ObjectIdToString_Omit_mongoose.Require_id_DocType-and-TVirtuals_.__v__","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Required___id-mongoose.Types.ObjectId__": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ApiResponse_mongoose.Document_unknown.__.IDefineOption.__.mongoose.DefaultSchemaOptions_-and-IDefineOption-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__": {
+        "dataType": "refObject",
+        "properties": {
+            "status": {"ref":"ApiStatus","required":true},
+            "code": {"dataType":"double","required":true},
+            "message": {"dataType":"string"},
+            "data": {"dataType":"intersection","subSchemas":[{"ref":"mongoose.Document_unknown.__.IDefineOption.__.mongoose.DefaultSchemaOptions_"},{"ref":"IDefineOption"},{"ref":"Required___id-mongoose.Types.ObjectId__"},{"dataType":"nestedObjectLiteral","nestedProperties":{"__v":{"dataType":"double","required":true}}}]},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "CreateDefineOptionDto": {
+        "dataType": "refObject",
+        "properties": {
+            "op_id": {"dataType":"string","required":true},
+            "op_name": {"dataType":"string","required":true},
+            "op_value": {"dataType":"string","required":true},
+            "op_description": {"dataType":"string"},
+            "op_is_active": {"dataType":"boolean"},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ApiResponse__40_IDefineOption-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__41_-Array_": {
+        "dataType": "refObject",
+        "properties": {
+            "status": {"ref":"ApiStatus","required":true},
+            "code": {"dataType":"double","required":true},
+            "message": {"dataType":"string"},
+            "data": {"dataType":"array","array":{"dataType":"intersection","subSchemas":[{"ref":"IDefineOption"},{"ref":"Required___id-mongoose.Types.ObjectId__"},{"dataType":"nestedObjectLiteral","nestedProperties":{"__v":{"dataType":"double","required":true}}}]}},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ApiResponse_IDefineOption-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__": {
+        "dataType": "refObject",
+        "properties": {
+            "status": {"ref":"ApiStatus","required":true},
+            "code": {"dataType":"double","required":true},
+            "message": {"dataType":"string"},
+            "data": {"dataType":"intersection","subSchemas":[{"ref":"IDefineOption"},{"ref":"Required___id-mongoose.Types.ObjectId__"},{"dataType":"nestedObjectLiteral","nestedProperties":{"__v":{"dataType":"double","required":true}}}]},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "UpdateDefineOptionDto": {
+        "dataType": "refObject",
+        "properties": {
+            "op_name": {"dataType":"string"},
+            "op_value": {"dataType":"string"},
+            "op_description": {"dataType":"string"},
+            "op_is_active": {"dataType":"boolean"},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "UpdateDefineOptionValueDto": {
+        "dataType": "refObject",
+        "properties": {
+            "op_value": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ApiResponse__message-string__": {
+        "dataType": "refObject",
+        "properties": {
+            "status": {"ref":"ApiStatus","required":true},
+            "code": {"dataType":"double","required":true},
+            "message": {"dataType":"string"},
+            "data": {"dataType":"nestedObjectLiteral","nestedProperties":{"message":{"dataType":"string","required":true}}},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "RegisterRequestBody": {
         "dataType": "refObject",
         "properties": {
@@ -34,11 +136,6 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "ApiStatus": {
-        "dataType": "refAlias",
-        "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["success"]},{"dataType":"enum","enums":["error"]}],"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "ApiResponse__accessToken-string--refreshToken-string__": {
         "dataType": "refObject",
         "properties": {
@@ -46,17 +143,6 @@ const models: TsoaRoute.Models = {
             "code": {"dataType":"double","required":true},
             "message": {"dataType":"string"},
             "data": {"dataType":"nestedObjectLiteral","nestedProperties":{"refreshToken":{"dataType":"string","required":true},"accessToken":{"dataType":"string","required":true}}},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "ApiResponse__message-string__": {
-        "dataType": "refObject",
-        "properties": {
-            "status": {"ref":"ApiStatus","required":true},
-            "code": {"dataType":"double","required":true},
-            "message": {"dataType":"string"},
-            "data": {"dataType":"nestedObjectLiteral","nestedProperties":{"message":{"dataType":"string","required":true}}},
         },
         "additionalProperties": false,
     },
@@ -78,6 +164,193 @@ export function RegisterRoutes(app: Router) {
 
 
     
+        const argsDefineOptionController_create: Record<string, TsoaRoute.ParameterSchema> = {
+                body: {"in":"body","name":"body","required":true,"ref":"CreateDefineOptionDto"},
+        };
+        app.post('/define-options',
+            authenticateMiddleware([{"jwt":["admin"]}]),
+            ...(fetchMiddlewares<RequestHandler>(DefineOptionController)),
+            ...(fetchMiddlewares<RequestHandler>(DefineOptionController.prototype.create)),
+
+            async function DefineOptionController_create(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsDefineOptionController_create, request, response });
+
+                const controller = new DefineOptionController();
+
+              await templateService.apiHandler({
+                methodName: 'create',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsDefineOptionController_getAll: Record<string, TsoaRoute.ParameterSchema> = {
+        };
+        app.get('/define-options',
+            authenticateMiddleware([{"jwt":[]}]),
+            ...(fetchMiddlewares<RequestHandler>(DefineOptionController)),
+            ...(fetchMiddlewares<RequestHandler>(DefineOptionController.prototype.getAll)),
+
+            async function DefineOptionController_getAll(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsDefineOptionController_getAll, request, response });
+
+                const controller = new DefineOptionController();
+
+              await templateService.apiHandler({
+                methodName: 'getAll',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsDefineOptionController_getById: Record<string, TsoaRoute.ParameterSchema> = {
+                op_id: {"in":"path","name":"op_id","required":true,"dataType":"string"},
+        };
+        app.get('/define-options/:op_id',
+            authenticateMiddleware([{"jwt":[]}]),
+            ...(fetchMiddlewares<RequestHandler>(DefineOptionController)),
+            ...(fetchMiddlewares<RequestHandler>(DefineOptionController.prototype.getById)),
+
+            async function DefineOptionController_getById(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsDefineOptionController_getById, request, response });
+
+                const controller = new DefineOptionController();
+
+              await templateService.apiHandler({
+                methodName: 'getById',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsDefineOptionController_update: Record<string, TsoaRoute.ParameterSchema> = {
+                op_id: {"in":"path","name":"op_id","required":true,"dataType":"string"},
+                body: {"in":"body","name":"body","required":true,"ref":"UpdateDefineOptionDto"},
+        };
+        app.put('/define-options/:op_id',
+            authenticateMiddleware([{"jwt":["admin"]}]),
+            ...(fetchMiddlewares<RequestHandler>(DefineOptionController)),
+            ...(fetchMiddlewares<RequestHandler>(DefineOptionController.prototype.update)),
+
+            async function DefineOptionController_update(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsDefineOptionController_update, request, response });
+
+                const controller = new DefineOptionController();
+
+              await templateService.apiHandler({
+                methodName: 'update',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsDefineOptionController_updateValue: Record<string, TsoaRoute.ParameterSchema> = {
+                op_id: {"in":"path","name":"op_id","required":true,"dataType":"string"},
+                body: {"in":"body","name":"body","required":true,"ref":"UpdateDefineOptionValueDto"},
+        };
+        app.patch('/define-options/:op_id/value',
+            authenticateMiddleware([{"jwt":["admin"]}]),
+            ...(fetchMiddlewares<RequestHandler>(DefineOptionController)),
+            ...(fetchMiddlewares<RequestHandler>(DefineOptionController.prototype.updateValue)),
+
+            async function DefineOptionController_updateValue(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsDefineOptionController_updateValue, request, response });
+
+                const controller = new DefineOptionController();
+
+              await templateService.apiHandler({
+                methodName: 'updateValue',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsDefineOptionController_delete: Record<string, TsoaRoute.ParameterSchema> = {
+                op_id: {"in":"path","name":"op_id","required":true,"dataType":"string"},
+        };
+        app.delete('/define-options/:op_id',
+            authenticateMiddleware([{"jwt":["admin"]}]),
+            ...(fetchMiddlewares<RequestHandler>(DefineOptionController)),
+            ...(fetchMiddlewares<RequestHandler>(DefineOptionController.prototype.delete)),
+
+            async function DefineOptionController_delete(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsDefineOptionController_delete, request, response });
+
+                const controller = new DefineOptionController();
+
+              await templateService.apiHandler({
+                methodName: 'delete',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsAuthController_register: Record<string, TsoaRoute.ParameterSchema> = {
                 body: {"in":"body","name":"body","required":true,"ref":"RegisterRequestBody"},
         };
