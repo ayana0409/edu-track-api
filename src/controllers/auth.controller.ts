@@ -23,6 +23,8 @@ import { verifyGoogleToken } from "../services/googleAuth.service";
 import { roleCacheService } from "../services/roleCache.service";
 import { Role } from "../types/role.enum";
 import { LoginProvider } from "../types/loginProvider.enum";
+import { defineOptionCacheService } from "../services/defineOptionCache.service";
+import { DefineOptionKey } from "../types/defineOption.enum";
 
 @Route("auth")
 @Tags("Auth")
@@ -156,7 +158,12 @@ export class AuthController extends Controller {
     const user = await UserModel.findById(new Types.ObjectId(body.userId));
     if (!user) throw new ApiError(404, "User not found");
 
-    user.usr_password = await bcrypt.hash(env.DEFAULT_PASSWORD, 10);
+    var defaultPassword =
+      (await defineOptionCacheService.getValue(
+        DefineOptionKey.DEFAULT_PASSWORD
+      )) ?? env.DEFAULT_PASSWORD;
+
+    user.usr_password = await bcrypt.hash(defaultPassword, 10);
     await user.save();
 
     return successResponse({ message: "Password reset successfully" });
