@@ -249,6 +249,210 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"mongoose.Document_unknown.__.IDefineModel.__.mongoose.DefaultSchemaOptions_": {
+				"$ref": "#/components/schemas/mongoose.ObjectIdToString_Omit_mongoose.Require_id_DocType-and-TVirtuals_.__v__",
+				"description": "Generic types for Document:\n*  T - the type of _id\n*  TQueryHelpers - Object with any helpers that should be mixed into the Query type\n*  DocType - the type of the actual Document created"
+			},
+			"IDefineModel": {
+				"$ref": "#/components/schemas/mongoose.ObjectIdToString_Omit_mongoose.Require_id_DocType-and-TVirtuals_.__v__"
+			},
+			"ApiResponse_mongoose.Document_unknown.__.IDefineModel.__.mongoose.DefaultSchemaOptions_-and-IDefineModel-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__": {
+				"properties": {
+					"status": {
+						"$ref": "#/components/schemas/ApiStatus"
+					},
+					"code": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/mongoose.Document_unknown.__.IDefineModel.__.mongoose.DefaultSchemaOptions_"
+							},
+							{
+								"$ref": "#/components/schemas/IDefineModel"
+							},
+							{
+								"$ref": "#/components/schemas/Required___id-mongoose.Types.ObjectId__"
+							},
+							{
+								"properties": {
+									"__v": {
+										"type": "number",
+										"format": "double"
+									}
+								},
+								"required": [
+									"__v"
+								],
+								"type": "object"
+							}
+						]
+					}
+				},
+				"required": [
+					"status",
+					"code"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateDefineModelDto": {
+				"properties": {
+					"ml_id": {
+						"type": "string"
+					},
+					"ml_api_key": {
+						"type": "string"
+					},
+					"ml_name": {
+						"type": "string"
+					},
+					"ml_api_url": {
+						"type": "string"
+					},
+					"ml_max_token": {
+						"type": "number",
+						"format": "double"
+					},
+					"ml_temperature": {
+						"type": "number",
+						"format": "double"
+					},
+					"ml_sys_prompt": {
+						"type": "string"
+					},
+					"ml_is_active": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"ml_id",
+					"ml_api_key"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse__40_IDefineModel-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__41_-Array_": {
+				"properties": {
+					"status": {
+						"$ref": "#/components/schemas/ApiStatus"
+					},
+					"code": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"allOf": [
+								{
+									"$ref": "#/components/schemas/IDefineModel"
+								},
+								{
+									"$ref": "#/components/schemas/Required___id-mongoose.Types.ObjectId__"
+								},
+								{
+									"properties": {
+										"__v": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"__v"
+									],
+									"type": "object"
+								}
+							]
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"status",
+					"code"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_IDefineModel-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__": {
+				"properties": {
+					"status": {
+						"$ref": "#/components/schemas/ApiStatus"
+					},
+					"code": {
+						"type": "number",
+						"format": "double"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/IDefineModel"
+							},
+							{
+								"$ref": "#/components/schemas/Required___id-mongoose.Types.ObjectId__"
+							},
+							{
+								"properties": {
+									"__v": {
+										"type": "number",
+										"format": "double"
+									}
+								},
+								"required": [
+									"__v"
+								],
+								"type": "object"
+							}
+						]
+					}
+				},
+				"required": [
+					"status",
+					"code"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateDefineModelDto": {
+				"properties": {
+					"ml_name": {
+						"type": "string"
+					},
+					"ml_api_key": {
+						"type": "string"
+					},
+					"ml_api_url": {
+						"type": "string"
+					},
+					"ml_max_token": {
+						"type": "number",
+						"format": "double"
+					},
+					"ml_temperature": {
+						"type": "number",
+						"format": "double"
+					},
+					"ml_sys_prompt": {
+						"type": "string"
+					},
+					"ml_is_active": {
+						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
 			"RegisterRequestBody": {
 				"properties": {
 					"username": {
@@ -561,6 +765,183 @@
 						}
 					}
 				}
+			}
+		},
+		"/define-models": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_mongoose.Document_unknown.__.IDefineModel.__.mongoose.DefaultSchemaOptions_-and-IDefineModel-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"DefineModel"
+				],
+				"security": [
+					{
+						"jwt": [
+							"admin"
+						]
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateDefineModelDto"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__40_IDefineModel-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__41_-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"DefineModel"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/define-models/{ml_id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_IDefineModel-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"DefineModel"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "ml_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_mongoose.Document_unknown.__.IDefineModel.__.mongoose.DefaultSchemaOptions_-and-IDefineModel-and-Required___id-mongoose.Types.ObjectId__-and-___v-number__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"DefineModel"
+				],
+				"security": [
+					{
+						"jwt": [
+							"admin"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "ml_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateDefineModelDto"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "Delete",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__message-string__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"DefineModel"
+				],
+				"security": [
+					{
+						"jwt": [
+							"admin"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "ml_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/auth/register": {

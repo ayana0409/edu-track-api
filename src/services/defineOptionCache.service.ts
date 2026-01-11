@@ -28,6 +28,7 @@ class DefineOptionCacheService {
     }
 
     this.loaded = true;
+    console.log("Load define option cache completed");
   }
 
   // Get by op_id

@@ -5,6 +5,7 @@ import { initRoles } from "./utils/initRole";
 import { roleCacheService } from "./services/roleCache.service";
 import { defineOptionCacheService } from "./services/defineOptionCache.service";
 import { initDefineOptions } from "./utils/initDefineOptions";
+import { defineModelCacheService } from "./services/defineModelCache.service";
 
 const startServer = async () => {
   await connectDB();
@@ -18,6 +19,7 @@ const startServer = async () => {
   // Load caches
   await roleCacheService.load();
   await defineOptionCacheService.load();
+  await defineModelCacheService.load();
 
   // Start server
   app.listen(env.PORT, () => {

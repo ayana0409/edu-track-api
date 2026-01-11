@@ -25,6 +25,7 @@ class RoleCacheService {
     }
 
     this.loaded = true;
+    console.log(`Load role cache completed`);
   }
 
   public async getRoleByName(name: string) {
